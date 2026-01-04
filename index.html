@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 Bingo Generator</h1>
+        
+        <div class="input-section">
+            <div class="input-group">
+                <input type="text" id="nameInput" placeholder="Gib deinen Vornamen ein..." />
+                <button class="btn-generate" onclick="generateBingo()">Generieren</button>
+            </div>
+            <button class="btn-download" id="downloadBtn" onclick="downloadPDF()">📥 Als PDF herunterladen</button>
+        </div>
+        
+        <div class="bingo-board" id="bingoBoard">
+            <div class="board-header">
+                <h2>BINGO</h2>
+                <p id="playerName"></p>
+            </div>
+            <div class="grid" id="bingoGrid"></div>
+            <div class="actions">
+                <button class="btn-generate" onclick="window.print()">🖨️ Drucken</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="bingo.js"></script>
+</body>
+</html>
