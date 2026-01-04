@@ -2,43 +2,37 @@
 // Configuration & Data
 // ============================================================================
 
-// Beispiel Bingo Items - diese sollten später aus einer .txt Datei geladen werden
+// Google Sheets API URL - Luzi, wenn du das liesst, mach kein Scheiss ;) Bin zu faul das geheim zu halten.
+const GOOGLE_SHEET_API = 'https://script.google.com/macros/s/AKfycbzVo7cbezt0yHChCXvoz6t-cy-1mOdH5nigyY6IB6i-HPAOs1da20p2aapOv0vigAfb/exec';
+
+// Random Bingo Items - diese sollten später aus einer .txt Datei geladen werden
 const BINGO_ITEMS = [
-    "Kaffee verschüttet",
-    "Zu spät gekommen",
-    "Handy vergessen",
-    "Falscher Name",
-    "Witz erzählt",
-    "Selfie gemacht",
-    "Lied gesungen",
-    "Tanzen",
-    "Getränk umgestossen",
-    "Kompliment gemacht",
-    "Geschichte erzählt",
-    "Gelacht",
-    "Geweint",
-    "Geschlafen",
-    "Gegähnt",
-    "Geniest",
-    "Gehustet",
-    "Gestolpert",
-    "Verloren",
-    "Gewonnen",
-    "Geredet",
-    "Geschwiegen",
-    "Gegessen",
-    "Getrunken",
-    "Gespielt",
-    "Gearbeitet",
-    "Gelesen",
-    "Geschrieben",
-    "Telefoniert",
-    "Fotografiert",
-    "Gefilmt",
-    "Musik gehört",
-    "Sport gemacht",
-    "Spaziert",
-    "Auto gefahren"
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen",
+    "Wenn du dieses Item siehst, ist etwas schief gelaufen"
 ];
 
 // ============================================================================
@@ -183,6 +177,38 @@ function renderBingoBoard(name, sheet) {
 }
 
 // ============================================================================
+// Player Tracking
+// ============================================================================
+
+/**
+ * Tracks player in Google Sheets (only adds if new)
+ * @param {string} name - Player name
+ */
+async function trackPlayer(name) {
+    if (!GOOGLE_SHEET_API || GOOGLE_SHEET_API.includes('DEINE_URL_HIER')) {
+        console.log('Google Sheets tracking not configured');
+        return;
+    }
+    
+    try {
+        await fetch(GOOGLE_SHEET_API, {
+            method: 'POST',
+            mode: 'no-cors', // Important for Google Apps Script
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: name
+            })
+        });
+        
+        console.log('Player tracked:', name);
+    } catch (error) {
+        console.warn('Could not track player:', error);
+    }
+}
+
+// ============================================================================
 // Main Functions
 // ============================================================================
 
@@ -197,6 +223,9 @@ async function generateBingo() {
         alert('Bitte gib deinen Vornamen ein!');
         return;
     }
+    
+    // Track player
+    trackPlayer(name);
     
     const sheet = await generateBingoSheet(name);
     renderBingoBoard(name, sheet);
