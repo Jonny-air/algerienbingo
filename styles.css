@@ -108,8 +108,10 @@ button {
 .grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
+    gap: 8px;
     margin-bottom: 20px;
+    width: 100%;
+    max-width: 100%;
 }
 
 .cell {
@@ -121,12 +123,18 @@ button {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 10px;
-    font-size: 14px;
+    padding: 8px;
+    font-size: clamp(8px, 1.2vw, 14px);
     font-weight: 500;
     color: #333;
     transition: all 0.3s;
     cursor: pointer;
+    line-height: 1.2;
+    overflow: hidden;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+    max-width: 100%;
 }
 
 .cell:hover {
@@ -180,20 +188,43 @@ button {
 
 /* Mobile Styles */
 @media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    
     .container {
-        padding: 20px;
+        padding: 15px;
+        max-width: 100%;
+        width: 100%;
     }
     
     h1 {
         font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+    
+    .grid {
+        gap: 5px;
     }
     
     .cell {
-        font-size: 11px;
-        padding: 5px;
+        font-size: clamp(7px, 2.5vw, 10px);
+        padding: 4px;
+        line-height: 1.1;
+        border-width: 2px;
+        border-radius: 6px;
+    }
+    
+    .cell.free {
+        font-size: clamp(10px, 3vw, 14px);
     }
     
     .input-group {
         flex-direction: column;
+    }
+    
+    button {
+        padding: 12px 20px;
+        font-size: 14px;
     }
 }
